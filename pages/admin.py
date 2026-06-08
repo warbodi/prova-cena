@@ -99,3 +99,17 @@ else:
                             aggiorna_status(ordine['airtable_id'], "Evaso")
                             st.rerun()
             st.divider()
+
+def svuota_storico_evasi():
+    # 1. Leggiamo tutti gli ordini presenti
+    ordini = leggi_ordini()
+    
+    # 2. Selezioniamo solo gli ID degli ordini che sono già stati "Evasi" o "Cancellati"
+    # Lasciamo intatti quelli "In Coda" per sicurezza!
+    da_eliminare = [o["airtable_id"] for o in ordini if o["Status"] in ["Evaso", "Cancellato"]]
+    
+    # 3. Airtable cancella massimo 10 record alla volta, quindi andiamo a blocchi
+    for i in range(0, len(da_eliminare), 10):
+        blocco = da_eliminare[i:i+10]
+        # Passiamo gli ID come parametri della richiesta DELETE
+        requests.delete(URL, headers=HEADERS, params={"records[]": blocco})

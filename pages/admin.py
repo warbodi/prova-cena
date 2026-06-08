@@ -113,3 +113,14 @@ def svuota_storico_evasi():
         blocco = da_eliminare[i:i+10]
         # Passiamo gli ID come parametri della richiesta DELETE
         requests.delete(URL, headers=HEADERS, params={"records[]": blocco})
+
+        # --- SEZIONE MANUTENZIONE AL CENTRO DELLA PAGINA ---
+st.divider()
+st.subheader("🧹 Pulizia Database")
+st.caption("Usa questo tasto prima di iniziare una nuova cena per azzerare i vecchi ordini su Airtable.")
+
+if st.button("🗑️ Svuota tutti gli Ordini Evasi e Cancellati", type="secondary"):
+    with st.spinner("Pulizia del database in corso..."):
+        svuota_storico_evasi()
+    st.success("Database ripulito! Pronto per la prossima cena. 🚀")
+    st.rerun()

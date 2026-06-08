@@ -1,0 +1,5 @@
+{
+  "Pizze": ["Margherita", "Diavola", "Capricciosa", "Quattro Formaggi"],
+  "Bevande": ["Birra Bionda piccola", "Birra Bionda media", "Coca Cola", "Acqua naturale"],
+  "Extra": ["Patatine fritte", "Olive ascolane"]
+}
